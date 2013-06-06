@@ -24,7 +24,7 @@
     });
     addListener(window, "load", function(){
         pageStopwatch.loadTime = new Date().getTime();
-    })
+    });
 
     var Stopwatch = pageStopwatch.Stopwatch = function Stopwatch() {
         if (!pageStopwatch.supported) {
@@ -62,25 +62,25 @@
     };
 
     Stopwatch.prototype.drawAt = function(container) {
-        var ce = function(tagName){ return document.createElement(tagName) };
+        var ce = function(tagName){ return document.createElement(tagName); };
         var div = ce('div');
         div.setAttribute('style', 'position: relative;');
-        var resources = [];
+        var resources = [], resource;
         var minStart = 99999;
         for (var url in this.resources) {
-            var resource = this.resources[url];
+            resource = this.resources[url];
             resources.push({
                 url: url,
                 start: resource[0],
                 elapsed: resource[1]
             });
-            var minStart = Math.min(minStart, resource[0]);
+            minStart = Math.min(minStart, resource[0]);
         }
         resources.sort(function(res1, res2) {
             return res1.start - res2.start;
         });
         var bar;
-        if (pageStopwatch.readyTime) {        
+        if (pageStopwatch.readyTime) {
             var readyTime = (pageStopwatch.readyTime - this.startTime) / 1000;
             if (pageStopwatch.readyTime > minStart) {
                 bar = ce('div');
@@ -90,7 +90,7 @@
                 div.appendChild(bar);
             }
         }
-        if (pageStopwatch.loadTime) {        
+        if (pageStopwatch.loadTime) {
             var loadTime = (pageStopwatch.loadTime - this.startTime) / 1000;
             if (pageStopwatch.loadTime > minStart) {
                 bar = ce('div');
@@ -101,7 +101,7 @@
             }
         }
         for (var i = 0; i < resources.length; i++) {
-            var resource = resources[i];
+            resource = resources[i];
             bar = ce('div');
             bar.setAttribute('style', 'left: ' + (resource.start - minStart) * 100 + 'px; width: ' + resource.elapsed * 100 + 'px; height: 6px; border: 2px solid #ddf; background: #99f; display: block; position: relative;');
             bar.setAttribute('title', 'start: ' + resource.start + ', elapsed: ' + resource.elapsed + ', url: ' + resource.url);
@@ -136,10 +136,10 @@
                     window._gaq = [];
                 }
                 if (elapsed > 0 && elapsed < 60000) {
-                    _gaq.push(['_trackTiming', 'pageStopwatchElapsed', url, elapsed]);
+                    _gaq.push(['_trackTiming', 'pageStopwatchElapsed', url, elapsed, node.tagName]);
                 }
                 if (start > 0 && start < 60000) {
-                    _gaq.push(['_trackTiming', 'pageStopwatchStart', url, start]);
+                    _gaq.push(['_trackTiming', 'pageStopwatchStart', url, start, node.tagName]);
                 }
             }
 
@@ -193,5 +193,4 @@
 
 })();
 
-
-pageStopwatch.start().notifyConsole();
+//pageStopwatch.start().notifyConsole();
