@@ -16,6 +16,11 @@ Supported Browsers
 
 Basically the requirement is MutationObserver support, you can test it by checking ```pageStopwatch.supported```
 
+Demo
+-----
+
+[DEMO](http://benjamine.github.io/PageStopwatch/demo/demo.html)
+
 Usage
 ------
 
