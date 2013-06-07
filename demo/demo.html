@@ -9,15 +9,14 @@
 
         <script src="../page-stopwatch.js" type="text/javascript"></script>
         <script>
-            if (!pageStopwatch.supported) {
-                return;
+            if (pageStopwatch.supported) {
+                var stopwatch = pageStopwatch.start().notifyConsole();
+                setInterval(function(){
+                    var container = document.getElementById('waterfall');
+                    container.innerHTML = "";
+                    stopwatch.drawAt(container);
+                }, 1000);
             }
-            var stopwatch = pageStopwatch.start().notifyConsole();
-            setInterval(function(){
-                var container = document.getElementById('waterfall');
-                container.innerHTML = "";
-                stopwatch.drawAt(container);
-            }, 1000);
         </script>
         <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.0/underscore.string.min.js" type="text/javascript"></script>
